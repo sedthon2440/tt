@@ -5,16 +5,15 @@ from telebot import types
 bot = telebot.TeleBot('7870596733:AAG110TQ_oD-oAymemVanhxIblAqhyzz9zc')
 @bot.message_handler(commands=['start'])
 def start(message):
-    dev = 'BDB0B'
-    ad='7291869416'
-    with open("id.txt", "r") as file:
-        ids = file.readlines()
-        user_id = str(message.from_user.id)
-        if user_id not in ids:
-            with open("id.txt", "a") as file:
-                file.write(user_id + "\n")
-            bot.send_message(ad, f"مستخدم جديد:\nإسمه: {message.from_user.first_name} .\nيوزره: @{message.from_user.username} .\nأيديه: {message.from_user.id} .\n[المبرمج](t.me/{dev})")
-            markup = types.InlineKeyboardMarkup(row_width=2)
+    ad = message.chat.id  # تأكد من أن هذا هو المعرف الصحيح
+    dev = "BDB0B"  # استبدل باسم مستخدم المطور الخاص بك
+    try:
+        bot.send_message(ad, f"مستخدم جديد:\nإسمه: {message.from_user.first_name} .\nيوزره: @{message.from_user.username} .\nأيديه: {message.from_user.id} .\n[المبرمج](t.me/{dev})")
+    except telebot.apihelper.ApiTelegramException as e:
+        print(f"Error: {e}")
+
+
+
             saif1 = types.InlineKeyboardButton('المختبرات', callback_data='مختبرات')
             saif2 = types.InlineKeyboardButton("المواد",callback_data='ملازم المواد')
             saif4 = types.InlineKeyboardButton('اقسام اخرى', callback_data='اشياء تفيدك')
